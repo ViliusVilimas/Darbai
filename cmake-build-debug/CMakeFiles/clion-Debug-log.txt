@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\s058019\Documents\Darbai Select CMakeLists.txt
