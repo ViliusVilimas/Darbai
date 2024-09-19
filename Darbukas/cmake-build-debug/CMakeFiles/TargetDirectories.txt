@@ -1,0 +1,3 @@
+C:/Users/s058019/Desktop/Darbukas/cmake-build-debug/CMakeFiles/Darbukas.dir
+C:/Users/s058019/Desktop/Darbukas/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/s058019/Desktop/Darbukas/cmake-build-debug/CMakeFiles/rebuild_cache.dir
