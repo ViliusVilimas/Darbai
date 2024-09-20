@@ -23,8 +23,10 @@ int main() {
                 cout <<"1 EUR = "<< fixed << setprecision(2) << INR_Bendras << " INR" <<endl;
                 break;
 
-            case 2:
-                while(true) {
+            case 2: {
+                int sto=1;
+                while(sto != 0) {
+                    float eur;
                     cout << "Pasirinkite, kuria valiuta norite pirkti" << endl;
                     cout << "1. USD" << endl;
                     cout << "2. GBP" << endl;
@@ -34,22 +36,34 @@ int main() {
 
                     switch(choice) {
                         case 1:
-                            float eur;
                             cout << "Iveskite euru kieki" << endl;
-                            cin >> eur;
-                            cout << eur << " EUR = " << fixed << setprecision(2) << eur * USD_Pirkti << endl;
-                        
-                        case 1:
-                            float eur;
-                        cout << "Iveskite euru kieki" << endl;
                         cin >> eur;
-                        cout << eur << " EUR = " << fixed << setprecision(2) << eur * USD_Pirkti << endl;
+                        cout << eur << " EUR = " << fixed << setprecision(2) << eur * USD_Pirkti << " USD" << endl;
+                        break;
+
+                        case 2:
+                            cout << "Iveskite euru kieki" << endl;
+                        cin >> eur;
+                        cout << eur << " EUR = " << fixed << setprecision(2) << eur * GBP_Pirkti << " GBP" << endl;
+                        break;
+
+                        case 3:
+                            cout << "Iveskite euru kieki" << endl;
+                        cin >> eur;
+                        cout << eur << " EUR = " << fixed << setprecision(2) << eur * INR_Pirkti << " INR" << endl;
+                        break;
+
+                        case 4:
+                            sto=0;
+                        break;
+
+                        default: cout << "Tokios opcijos nera" << endl;
+
 
                     }
                 }
-            break;
+            }
 
-            case 3:
 
                 break;
 
