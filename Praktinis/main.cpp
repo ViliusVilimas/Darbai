@@ -17,11 +17,12 @@ int main() {
         cin >> choice;
 
         switch (choice) {
-            case 1:
+            case 1: {
                 cout <<"1 EUR = "<< fixed << setprecision(2) << USD_Bendras << " USD" <<endl;
                 cout <<"1 EUR = "<< fixed << setprecision(2) << GBP_Bendras << " GBP" <<endl;
                 cout <<"1 EUR = "<< fixed << setprecision(2) << INR_Bendras << " INR" <<endl;
                 break;
+            }
 
             case 2: {
                 int sto=1;
@@ -62,14 +63,62 @@ int main() {
 
                     }
                 }
+                break;
             }
 
+            case 3:{
+                int sto=1;
+                while(sto != 0) {
+                    float USD, GBP, INR;
+                    cout << "Pasirinkite, kuria valiuta norite parduoti" << endl;
+                    cout << "1. USD" << endl;
+                    cout << "2. GBP" << endl;
+                    cout << "3. INR" << endl;
+                    cout << "4. atgal" << endl;
+                    cin >> choice;
 
-                break;
+                    switch(choice) {
+                        case 1: {
+                            cout << "Iveskite USD kieki" << endl;
+                            cin >> USD;
+                            cout << USD << " USD = " << fixed << setprecision(2) << USD / USD_Parduoti << " EUR" << endl;
+                            break;
+                        }
 
-                    default: cout<< "Nera tokios opcijos" << endl;
+                        case 2: {
+                            cout << "Iveskite GBP kieki" << endl;
+                            cin >> GBP;
+                            cout << GBP << " GBP = " << fixed << setprecision(2) << GBP / GBP_Parduoti << " EUR" << endl;
+                            break;
+                        }
+
+                        case 3: {
+                            cout << "Iveskite INR kieki" << endl;
+                            cin >> INR;
+                            cout << INR << " INR = " << fixed << setprecision(2) << INR / INR_Parduoti << " EUR" << endl;
+                            break;
+                        }
+
+                        case 4: {
+                            sto=0;
+                            break;
+
+                        }
+
+                        default: {
+                            cout << "Nera tokios opcijos" << endl;
+                            break;
+                        }
+                    }
 
                 }
+                break;
+            }
+
+            default: {
+                cout<< "Nera tokios opcijos" << endl;
+            }
+            }
         }
 
         return 0;
