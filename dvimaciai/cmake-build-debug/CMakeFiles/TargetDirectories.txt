@@ -1,0 +1,3 @@
+C:/Users/s058019/Documents/Darbai/dvimaciai/cmake-build-debug/CMakeFiles/dvimaciai.dir
+C:/Users/s058019/Documents/Darbai/dvimaciai/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/s058019/Documents/Darbai/dvimaciai/cmake-build-debug/CMakeFiles/rebuild_cache.dir
