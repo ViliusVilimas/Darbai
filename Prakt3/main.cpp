@@ -4,10 +4,13 @@ using namespace std;
 
 string cipher(string word, string key);
 string decipher(string word, string key);
+int calculateShift(const string& word);
+string encrypt(const string& text, int shift);
+string decrypt(const string& text, int shift);
 
     const char abc[]={'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 int main() {
-    string key="KEY";
+    string key;
 
     int down=0;
     while (down == 0) {
@@ -31,6 +34,8 @@ int main() {
                             string word;
                             cout << "Irasykite, ka norite srifruoti" << endl;
                             cin>>word;
+                            cout << "Irasykite rakta" << endl;
+                            cin>>key;
                             cout << cipher(word, key) << endl;
 
                             break;
@@ -39,6 +44,8 @@ int main() {
                             string word;
                             cout << "Irasykite, ka norite desrifruoti" << endl;
                             cin>>word;
+                            cout << "Irasykite rakta" << endl;
+                            cin>>key;
                             cout << decipher(word, key) << endl;
 
                             break;
@@ -62,11 +69,23 @@ int main() {
                     cin>>par;
                     switch (par) {
                         case 1: {
-
+                            string word;
+                            cout << "Irasykite, ka norite srifruoti" << endl;
+                            cin >> word;
+                            cout << "Irasykite rakta" << endl;
+                            cin >> key;
+                            int shift = calculateShift(key);
+                            cout << encrypt(word, shift) << endl;
                             break;
                         }
                         case 2: {
-
+                            string word;
+                            cout << "Irasykite, ka norite desrifruoti" << endl;
+                            cin >> word;
+                            cout << "Irasykite rakta" << endl;
+                            cin >> key;
+                            int shift = calculateShift(key);
+                            cout << decrypt(word, shift) << endl;
                             break;
                         }
                         case 3: {
@@ -129,4 +148,30 @@ string decipher(string word, string key) {
         aword+=abc[k];
     }
     return aword;
+}
+
+int calculateShift(const string& word) {
+    int shift = 0;
+    for (char c : word) {
+        shift = (shift + static_cast<int>(c)) % 128;
+    }
+    return shift;
+}
+
+string encrypt(const string& text, int shift) {
+    string encrypted = text;
+    for (size_t i = 0; i < text.length(); ++i) {
+        char c = text[i];
+        encrypted[i] = static_cast<char>((c + shift) % 128);
+    }
+    return encrypted;
+}
+
+string decrypt(const string& text, int shift) {
+    string decrypted = text;
+    for (size_t i = 0; i < text.length(); ++i) {
+        char c = text[i];
+        decrypted[i] = static_cast<char>((c - shift + 128) % 128);
+    }
+    return decrypted;
 }
