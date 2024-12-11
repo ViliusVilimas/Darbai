@@ -1,42 +1,35 @@
-#include <iostream>
-#include <string>
+﻿#include <iostream>
 #include <fstream>
 #include <sstream>
-#include <vector>
+#include <iomanip>
+#include <string>
 using namespace std;
 
 struct Menu {
     string menuItem;
     double menuPrice;
 };
-int getData();
-string showMenu(string mi, float mp);
+int getData(const string& fileName, Menu menuList[], int maxItems);
+void showMenu(const Menu menuList[], int itemCount);
 string printCheck(string mi, float mp);
 
 
 
 int main() {
-    getData();
-    string key;
+    const string fileName = "C:\\Users\\user\\Desktop\\works\\Darbai\\Prakt4\\menu.txt";
+    const int maxItems = 100; // Maximum number of menu items
+    Menu menuList[maxItems];
+
+    // Create the menu using the createMenu function
+    int itemCount = getData(fileName, menuList, maxItems);
+
+    // Display the menu using the displayMenu function
+    showMenu(menuList, itemCount);
 
     int down=0;
     while (down == 0) {
         int par, amm;
-        cout << "===============================================================" << endl;
-        cout << "                       Siandienos meniu                        " << endl;
-        cout << "   " << endl;
-        cout << "1. Kiaušinienė                          1.45€" << endl;
-        cout << "2. Kiaulienos šoninė su keptu kiaušiniu 2.45€"<< endl;
-        cout << "3. Keksiukas su vyšnia                  0.99€" << endl;
-        cout << "4. Prancūziškas skrebutis               1.99€" << endl;
-        cout << "5. Vaisių salotos                       2.49€" << endl;
-        cout << "6. Pusryčių dribsniai                   0.69€" << endl;
-        cout << "7. Kava                                 0.50€" << endl;
-        cout << "8. Arbata                               0.75€" << endl;
-        cout << "   " << endl;
-        cout << "===============================================================" << endl;
-        cout << "9. baigti programa"<< endl;
-        cout << "Pasirinkite: " << endl;
+
         cin>>par;
 
         switch (par) {
@@ -101,49 +94,48 @@ int main() {
     return 0;
 }
 
-int getData() {
-    // Open the input file
-    ifstream file("products.txt");
-
-    // Check if the file was opened successfully
-    if (!file.is_open()) {
-        cerr << "Error: Could not open file." << endl;
-        return 1;
+int getData(const string& fileName, Menu menuList[], int maxItems) {
+    ifstream inputFile(fileName);
+    if (!inputFile) {
+        cerr << "Error: Could not open the file." << endl;
+        exit(1);
     }
-
-    vector<Menu> menuItems; // Vector to store the menu items
 
     string line;
-    while (getline(file, line)) {
-        // Find the position of the last space or tab, which separates the price
-        size_t lastSpace = line.find_last_of(" \t");
+    int count = 0;
 
-        // If no space/tab found, skip this line (in case it's an empty line)
-        if (lastSpace == string::npos) continue;
+    // Read the file line by line
+    while (getline(inputFile, line) && count < maxItems) {
+        stringstream ss(line);
+        string itemName;
+        double itemPrice;
 
-        // Extract the menu item and price
-        string menuItem = line.substr(0, lastSpace);
-        string price_str = line.substr(lastSpace + 1);
+        // Extract the menu item name
+        getline(ss, itemName, '\t');
 
-        // Remove the '€' symbol and convert to double
-        if (!price_str.empty() && price_str.back() == '€') {
-            price_str.pop_back(); // Remove the € sign
-        }
+        // Trim whitespace from the name
+        itemName.erase(itemName.find_last_not_of(" \t") + 1);
 
-        double menuPrice = stod(price_str); // Convert price string to double
+        // Extract the price, skipping any extra whitespace
+        string priceStr;
+        getline(ss, priceStr);
+        priceStr.erase(0, priceStr.find_first_of("0123456789"));
+        itemPrice = stod(priceStr);
 
-        // Store the menu item in the vector
-        menuItems.push_back(Menu{menuItem, menuPrice});
+        // Store the extracted data in the menu list
+        menuList[count] = {itemName, itemPrice};
+        count++;
     }
 
-    // Close the file
-    file.close();
-
-    // Output the extracted menu items and their prices
-    cout << "Extracted Menu Items:" << endl;
-    for (const auto& menu : menuItems) {
-        cout << "Menu Item: " << menu.menuItem << ", Price: " << menu.menuPrice << "€" << endl;
-    }
-
-    return 0;
+    inputFile.close();
+    return count;
 }
+void showMenu(const Menu menuList[], int itemCount) {
+    cout << left << setw(50) << "Menu Item" << right << setw(10) << "Price (€)" << endl;
+    cout << string(60, '-') << endl;
+    for (int i = 0; i < itemCount; ++i) {
+        cout << left << setw(50) << menuList[i].menuItem
+             << right << setw(9) << fixed << setprecision(2) << menuList[i].menuPrice << " €" << endl;
+    }
+}
+
