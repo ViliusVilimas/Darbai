@@ -11,7 +11,7 @@ struct Menu {
 };
 int getData(const string& fileName, Menu menuList[], int maxItems);
 void showMenu(const Menu menuList[], int itemCount);
-string printCheck(string mi, float mp);
+void printCheck(double price, ostream& sas);
 
 
 
@@ -20,68 +20,93 @@ int main() {
     const int maxItems = 100; // Maximum number of menu items
     Menu menuList[maxItems];
 
-    // Create the menu using the createMenu function
     int itemCount = getData(fileName, menuList, maxItems);
-
-    // Display the menu using the displayMenu function
-    showMenu(menuList, itemCount);
-
+    ofstream sas("sas.txt");
+    string check="sas.txt";
+    sas << "aciu, kad atvykote i restorana ""Smokas""" << endl;
     int down=0;
+    double sum=0;
     while (down == 0) {
+        showMenu(menuList, itemCount);
         int par, amm;
 
         cin>>par;
 
         switch (par) {
             case 1: {
-                cout<<"parasykite, kiek X noresite";
+                cout<<"Pasirinkote "<< menuList[par-1].menuItem <<", kiek noresite?";
                 cin>>amm;
+                sas << amm << "x " << left << setw(50) << menuList[par-1].menuItem
+                << right << setw(9) << fixed << setprecision(2) << menuList[par-1].menuPrice*amm << " €" << endl;
+                sum+=menuList[par-1].menuPrice*amm;
                 break;
             }
 
             case 2: {
-                cout<<"parasykite, kiek X noresite";
+                cout<<"Pasirinkote "<< menuList[par-1].menuItem <<", kiek noresite?";
                 cin>>amm;
+                sas << amm << "x " << left << setw(50) << menuList[par-1].menuItem
+                << right << setw(9) << fixed << setprecision(2) << menuList[par-1].menuPrice*amm << " €" << endl;
+                sum+=menuList[par-1].menuPrice*amm;
                 break;
             }
 
             case 3: {
-                cout<<"parasykite, kiek X noresite";
+                cout<<"Pasirinkote "<< menuList[par-1].menuItem <<", kiek noresite?";
                 cin>>amm;
+                sas << amm << "x " << left << setw(50) << menuList[par-1].menuItem
+                << right << setw(9) << fixed << setprecision(2) << menuList[par-1].menuPrice*amm << " €" << endl;
+                sum+=menuList[par-1].menuPrice*amm;
                 break;
             }
 
             case 4: {
-                cout<<"parasykite, kiek X noresite";
+                cout<<"Pasirinkote "<< menuList[par-1].menuItem <<", kiek noresite?";
                 cin>>amm;
+                sas << amm << "x " << left << setw(50) << menuList[par-1].menuItem
+                << right << setw(9) << fixed << setprecision(2) << menuList[par-1].menuPrice*amm << " €" << endl;
+                sum+=menuList[par-1].menuPrice*amm;
                 break;
             }
 
             case 5: {
-                cout<<"parasykite, kiek X noresite";
+                cout<<"Pasirinkote "<< menuList[par-1].menuItem <<", kiek noresite?";
                 cin>>amm;
+                sas << amm << "x " << left << setw(50) << menuList[par-1].menuItem
+                << right << setw(9) << fixed << setprecision(2) << menuList[par-1].menuPrice*amm << " €" << endl;
+                sum+=menuList[par-1].menuPrice*amm;
                 break;
             }
 
             case 6: {
-                cout<<"parasykite, kiek X noresite";
+                cout<<"Pasirinkote "<< menuList[par-1].menuItem <<", kiek noresite?";
                 cin>>amm;
+                sas << amm << "x " << left << setw(50) << menuList[par-1].menuItem
+                << right << setw(9) << fixed << setprecision(2) << menuList[par-1].menuPrice*amm << " €" << endl;
+                sum+=menuList[par-1].menuPrice*amm;
                 break;
             }
 
             case 7: {
-                cout<<"parasykite, kiek X noresite";
+                cout<<"Pasirinkote "<< menuList[par-1].menuItem <<", kiek noresite?";
                 cin>>amm;
+                sas << amm << "x " << left << setw(50) << menuList[par-1].menuItem
+                << right << setw(9) << fixed << setprecision(2) << menuList[par-1].menuPrice*amm << " €" << endl;
+                sum+=menuList[par-1].menuPrice*amm;
                 break;
             }
 
             case 8: {
-                cout<<"parasykite, kiek X noresite";
+                cout<<"Pasirinkote "<< menuList[par-1].menuItem <<", kiek noresite?";
                 cin>>amm;
+                sas << amm << "x " << left << setw(50) << menuList[par-1].menuItem
+                << right << setw(9) << fixed << setprecision(2) << menuList[par-1].menuPrice*amm << " €" << endl;
+                sum+=menuList[par-1].menuPrice*amm;
                 break;
             }
 
             case 9: {
+                printCheck(sum, sas);
                 down++;
                 break;
             }
@@ -91,6 +116,7 @@ int main() {
             }
         }
     }
+    sas.close();
     return 0;
 }
 
@@ -104,25 +130,20 @@ int getData(const string& fileName, Menu menuList[], int maxItems) {
     string line;
     int count = 0;
 
-    // Read the file line by line
     while (getline(inputFile, line) && count < maxItems) {
         stringstream ss(line);
         string itemName;
         double itemPrice;
 
-        // Extract the menu item name
         getline(ss, itemName, '\t');
 
-        // Trim whitespace from the name
         itemName.erase(itemName.find_last_not_of(" \t") + 1);
 
-        // Extract the price, skipping any extra whitespace
         string priceStr;
         getline(ss, priceStr);
         priceStr.erase(0, priceStr.find_first_of("0123456789"));
         itemPrice = stod(priceStr);
 
-        // Store the extracted data in the menu list
         menuList[count] = {itemName, itemPrice};
         count++;
     }
@@ -131,11 +152,15 @@ int getData(const string& fileName, Menu menuList[], int maxItems) {
     return count;
 }
 void showMenu(const Menu menuList[], int itemCount) {
-    cout << left << setw(50) << "Menu Item" << right << setw(10) << "Price (€)" << endl;
+    cout << "Sveiki atvyke i restorana ""Smokas""" << endl;
     cout << string(60, '-') << endl;
     for (int i = 0; i < itemCount; ++i) {
-        cout << left << setw(50) << menuList[i].menuItem
+        cout << i+1 << "." << left << setw(50) << menuList[i].menuItem
              << right << setw(9) << fixed << setprecision(2) << menuList[i].menuPrice << " €" << endl;
     }
+    cout << string(60, '-') << endl;
+    cout <<  "9.spausdinti ceki" << endl;
 }
-
+void printCheck(double price, ostream& sas) {
+    sas << "Saskaita " << price << " €" << endl;
+}
