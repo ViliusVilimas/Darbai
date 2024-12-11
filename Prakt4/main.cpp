@@ -112,7 +112,7 @@ int main() {
             }
 
             default: {
-                cout << "Nera tokio pasirinkimo, bandykite vel"<<endl;
+                cout << "Nera tokio pasirinkimo, bandykite vel."<<endl;
             }
         }
     }
