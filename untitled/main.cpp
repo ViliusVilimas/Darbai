@@ -54,6 +54,7 @@ int main() {
         delete[] table[i];
     }
     delete[] table;
+    
 
     return 0;
 }
