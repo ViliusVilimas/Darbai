@@ -138,6 +138,7 @@ int main() {
     }
 }
 
+
 void addContact() {
     Contact* newContact = new Contact;
     newContact->id = nextId++;
